@@ -51,8 +51,14 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: read
+
 jobs:
   analyze:
+    permissions:
+      contents: read
+      actions: read
     uses: ./.github/workflows/code-quality-analysis.yml
     with:
       repository: ${{ inputs.repository }}
