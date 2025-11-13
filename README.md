@@ -75,8 +75,6 @@ fuck-u-code analyze
 fuck-u-code analyze --verbose
 fuck-u-code analyze --top 3
 fuck-u-code analyze --lang en-US
-fuck-u-code analyze --lang zh-CN
-fuck-u-code analyze --lang ru-RU
 fuck-u-code analyze --summary
 fuck-u-code analyze --exclude "**/test/**"
 fuck-u-code analyze --markdown > report.md
@@ -96,6 +94,37 @@ fuck-u-code analyze --markdown --top 10 --lang en-US > report.md
 
 Markdown 报告包含：总体评分 / 指标表格 / 问题文件 / 改进建议
 
+### GitHub Actions 集成
+
+使用我们提供的 GitHub 工作流，在 CI/CD 中自动进行代码质量分析：
+
+```yaml
+# .github/workflows/code-quality.yml
+name: Code Quality Check
+on: [push, pull_request]
+
+jobs:
+  quality-check:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      language: 'zh-CN'
+      top-files: 10
+      artifact-name: 'code-quality-report'
+```
+
+或者使用 GitHub Action：
+
+```yaml
+- name: Code Quality Analysis
+  uses: ZhulongNT/fuck-u-code@main
+  with:
+    path: './src'
+    language: 'zh-CN'
+    top-files: 5
+```
+
+详细使用说明请参考：[GitHub 工作流文档](GITHUB_WORKFLOW.md)
+
 ### 默认排除路径
 
 * 前端: `node_modules`、`dist`、`build`、`*.min.js` 等
@@ -111,27 +140,15 @@ Markdown 报告包含：总体评分 / 指标表格 / 问题文件 / 改进建�
 
   并写入 `.bash_profile` / `.zshrc` 等
 
-## 反馈
+## 许可证
 
-> 💬 欢迎参与开放讨论  
-> 在此 Issue 下留言提出你的想法与建议：[#115](https://github.com/Done-0/fuck-u-code/issues/115)  
-> 加入 fuck-u-code 官方 Discord 社区参与讨论与协作：<https://discord.gg/9ThNkAFGnT>
+MIT
 
 ## 贡献
 
 欢迎提 PR，一起优化“fuck-u-code” 🚀
 
-## 许可证
-
-MIT
-
-## 联系方式
-
-- fenderisfine@outlook.com
-- fenderisfine@gmail.com
-- WeChat: l927171598
-
 ## 安利一下
 
- - [玄学工坊](https://bazi.site) — AI 赛博算命网站（独立项目，现考虑出售，欢迎联系）
+- [玄学工坊](https://bazi.site) — AI 赛博算命网站  
 - [Jank](https://github.com/Done-0/Jank) — Go 语言开源博客

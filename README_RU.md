@@ -76,8 +76,6 @@ fuck-u-code analyze
 fuck-u-code analyze --verbose
 fuck-u-code analyze --top 3
 fuck-u-code analyze --lang en-US
-fuck-u-code analyze --lang zh-CN
-fuck-u-code analyze --lang ru-RU
 fuck-u-code analyze --summary
 fuck-u-code analyze --exclude "**/test/**"
 fuck-u-code analyze --markdown > report.md
@@ -112,27 +110,15 @@ fuck-u-code analyze --markdown --top 10 --lang en-US > report.md
 
   Add it to `.bash_profile` / `.zshrc` etc.
 
-## Обратная связь
-
-> 💬 Поделитесь своими мыслями  
-> Пожалуйста, оставляйте свои мысли и предложения в этом issue: [#115](https://github.com/Done-0/fuck-u-code/issues/115)  
-> Присоединяйтесь к официальному сообществу Discord для обсуждения и сотрудничества: <https://discord.gg/9ThNkAFGnT>
-
-## Contributing
-
-PRs welcome — let’s improve **fuck-u-code** together �
-
 ## License
 
 MIT
 
-## Контакты
+## Contributing
 
-- fenderisfine@outlook.com
-- fenderisfine@gmail.com
-- WeChat: l927171598
+PRs welcome — let’s improve **fuck-u-code** together 🚀
 
 ## More Projects
 
-- [Xuanxue Workshop](https://bazi.site) — AI-powered fortune-telling website (Независимый проект, рассматривается продажа, контакты приветствуются)
+- [Xuanxue Workshop](https://bazi.site) — AI-powered fortune-telling website  
 - [Jank](https://github.com/Done-0/Jank) — Open-source blog system in Go
