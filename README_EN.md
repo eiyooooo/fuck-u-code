@@ -144,6 +144,21 @@ jobs:
     top-files: 10
 ```
 
+#### Analyze Any Repository Directly from This Repo
+
+No need to configure workflows in the target repository - run analysis directly from the fuck-u-code repository:
+
+1. Visit the [fuck-u-code Actions page](https://github.com/eiyooooo/fuck-u-code/actions/workflows/analyze-any-repo.yml)
+2. Click the "Run workflow" button
+3. Enter the repository URL and other parameters
+4. Wait for analysis to complete and download the generated report
+
+This approach is perfect for:
+- Quick analysis of open source projects
+- Evaluating external code quality
+- No modification to target repository required
+- One-click quality report generation
+
 For detailed usage instructions, see: [GitHub Workflow Documentation](GITHUB_WORKFLOW.md)
 
 ### Default Exclusions

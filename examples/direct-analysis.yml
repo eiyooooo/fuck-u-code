@@ -1,0 +1,46 @@
+# Direct Analysis from fuck-u-code Repository
+# This example shows how to analyze any repository directly from the fuck-u-code repo
+# without needing to add workflows to the target repository.
+
+# HOW TO USE:
+# 1. Go to: https://github.com/eiyooooo/fuck-u-code/actions/workflows/analyze-any-repo.yml
+# 2. Click "Run workflow" button
+# 3. Fill in the parameters (see below for examples)
+# 4. Wait for analysis to complete
+# 5. Download the generated report artifact
+
+# Example Parameters:
+
+# Example 1: Analyze a public open source project
+# Repository: https://github.com/gin-gonic/gin
+# Path: .
+# Language: en-US
+# Top files: 10
+# Max issues: 5
+
+# Example 2: Analyze a specific subdirectory
+# Repository: https://github.com/kubernetes/kubernetes
+# Path: pkg/scheduler
+# Language: en-US
+# Top files: 15
+# Exclude patterns: **/*_test.go **/testdata/**
+
+# Example 3: Quick summary analysis
+# Repository: https://github.com/user/repo
+# Path: .
+# Language: zh-CN
+# Summary only: true
+# Top files: 5
+
+# Example 4: Comprehensive analysis with verbose output
+# Repository: https://github.com/user/repo
+# Path: ./src
+# Language: en-US
+# Verbose: true
+# Top files: 20
+# Max issues: 10
+# Skip index: true
+# Exclude patterns: **/node_modules/** **/dist/** **/build/**
+
+# Note: This workflow is already available in the fuck-u-code repository.
+# You don't need to copy this file anywhere - just use the web interface!

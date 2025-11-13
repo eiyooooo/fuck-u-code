@@ -1,0 +1,73 @@
+name: Analyze Any Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Repository URL to analyze (e.g., https://github.com/user/repo)'
+        required: true
+        type: string
+      path:
+        description: 'Path to analyze within the repository (default: .)'
+        required: false
+        type: string
+        default: '.'
+      language:
+        description: 'Report language'
+        required: false
+        type: choice
+        options:
+          - en-US
+          - zh-CN
+        default: 'en-US'
+      top-files:
+        description: 'Number of top problematic files to show'
+        required: false
+        type: number
+        default: 10
+      max-issues:
+        description: 'Maximum issues to show per file'
+        required: false
+        type: number
+        default: 5
+      verbose:
+        description: 'Enable verbose output'
+        required: false
+        type: boolean
+        default: false
+      summary-only:
+        description: 'Show only summary'
+        required: false
+        type: boolean
+        default: false
+      exclude-patterns:
+        description: 'Exclude patterns (space-separated, e.g., "**/*.test.go **/vendor/**")'
+        required: false
+        type: string
+        default: ''
+      skip-index:
+        description: 'Skip index.js/index.ts files'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    permissions:
+      contents: read
+      actions: read
+    uses: ./.github/workflows/code-quality-analysis.yml
+    with:
+      repository: ${{ inputs.repository }}
+      path: ${{ inputs.path }}
+      language: ${{ inputs.language }}
+      top-files: ${{ inputs.top-files }}
+      max-issues: ${{ inputs.max-issues }}
+      verbose: ${{ inputs.verbose }}
+      summary-only: ${{ inputs.summary-only }}
+      exclude-patterns: ${{ inputs.exclude-patterns }}
+      skip-index: ${{ inputs.skip-index }}
+      artifact-name: 'code-quality-report'

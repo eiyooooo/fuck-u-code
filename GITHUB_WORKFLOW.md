@@ -12,6 +12,28 @@ This repository provides a reusable GitHub workflow that allows you to run `fuck
 - 🌍 **Multi-language** - Supports both Chinese (zh-CN) and English (en-US) reports
 - 📋 **Job summaries** - Displays key metrics directly in the GitHub Actions UI
 - 🔤 **Multi-language support** - Go, JS/TS, Python, Java, C/C++, Kotlin, Rust, C#, Lua
+- 🚀 **Direct execution** - Analyze any repository directly from the fuck-u-code repository without setup
+
+## Quick Start: Analyze Any Repository Directly
+
+The easiest way to analyze any public GitHub repository is to use the built-in workflow directly from this repository:
+
+1. **Visit the Actions page**: Go to [Analyze Any Repository](https://github.com/eiyooooo/fuck-u-code/actions/workflows/analyze-any-repo.yml)
+2. **Click "Run workflow"**: Look for the green "Run workflow" button
+3. **Enter parameters**:
+   - **Repository**: The GitHub URL (e.g., `https://github.com/user/repo`)
+   - **Path**: Optional path within the repo (default: `.`)
+   - **Language**: Choose `en-US` or `zh-CN` for the report
+   - **Top files**: Number of worst files to show (default: 10)
+   - Other optional parameters...
+4. **Wait for completion**: The workflow will clone, analyze, and generate a report
+5. **Download the report**: Find the artifact under the workflow run
+
+This method is perfect for:
+- 🔍 Quick analysis of open source projects
+- 📊 Evaluating code quality before contributing
+- 🎯 No need to fork or modify the target repository
+- ⚡ One-click quality assessment
 
 ## Usage
 
