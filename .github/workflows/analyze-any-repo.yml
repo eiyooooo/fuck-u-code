@@ -64,8 +64,8 @@ jobs:
       repository: ${{ inputs.repository }}
       path: ${{ inputs.path }}
       language: ${{ inputs.language }}
-      top-files: ${{ inputs.top-files }}
-      max-issues: ${{ inputs.max-issues }}
+      top-files: ${{ fromJSON(inputs.top-files) }}
+      max-issues: ${{ fromJSON(inputs.max-issues) }}
       verbose: ${{ inputs.verbose }}
       summary-only: ${{ inputs.summary-only }}
       exclude-patterns: ${{ inputs.exclude-patterns }}
