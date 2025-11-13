@@ -9,8 +9,22 @@ This directory contains example workflows showing how to use fuck-u-code in GitH
 - **`action-usage.yml`** - Using the composite action with quality gates
 - **`external-repo-usage.yml`** - Analyzing external GitHub repositories
 - **`kotlin-analysis.yml`** - Kotlin project analysis examples
+- **`direct-analysis.yml`** - Analyze any repository directly from fuck-u-code repo (no setup needed!)
 
 ## Quick Start
+
+### Option 1: Direct Analysis (Recommended for Quick Testing)
+
+**No setup required!** Analyze any repository directly:
+
+1. Visit [Analyze Any Repository](https://github.com/eiyooooo/fuck-u-code/actions/workflows/analyze-any-repo.yml)
+2. Click "Run workflow"
+3. Enter the repository URL and parameters
+4. Download the generated report
+
+See `direct-analysis.yml` for parameter examples.
+
+### Option 2: Add Workflow to Your Repository
 
 1. Copy one of the example files to `.github/workflows/` in your repository
 2. Customize the parameters for your needs
