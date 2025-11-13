@@ -1,0 +1,36 @@
+# Kotlin Project Analysis Example
+# This shows how to analyze Kotlin projects
+
+name: Kotlin Code Quality Check
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.kt'
+      - '**.kts'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  kotlin-quality:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      path: './src'
+      language: 'en-US'
+      top-files: 10
+      max-issues: 5
+      exclude-patterns: '**/test/** **/androidTest/** **/build/**'
+      artifact-name: 'kotlin-quality-report'
+      
+  # Example: Analyze external Kotlin repository
+  analyze-kotlin-project:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: 'https://github.com/JetBrains/kotlin'
+      path: 'compiler'
+      language: 'en-US'
+      top-files: 15
+      verbose: true
+      exclude-patterns: '**/testData/** **/test/**'
+      artifact-name: 'kotlin-compiler-report'

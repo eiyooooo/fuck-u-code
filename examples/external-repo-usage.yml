@@ -1,0 +1,37 @@
+# External Repository Analysis Example
+# This shows how to analyze an external GitHub repository
+
+name: Analyze External Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_url:
+        description: 'Repository URL to analyze'
+        required: true
+        default: 'https://github.com/user/repo'
+  schedule:
+    # Run weekly analysis on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+
+jobs:
+  analyze-external-repo:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: ${{ github.event.inputs.repo_url || 'https://github.com/torvalds/linux' }}
+      path: '.'
+      language: 'en-US'
+      top-files: 10
+      max-issues: 5
+      artifact-name: 'external-repo-quality-report'
+      
+  # Example: Analyze specific path in external repository
+  analyze-external-repo-subdir:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: 'https://github.com/kubernetes/kubernetes'
+      path: 'pkg'
+      language: 'en-US'
+      top-files: 5
+      exclude-patterns: '**/*_test.go **/testdata/**'
+      artifact-name: 'k8s-pkg-quality-report'

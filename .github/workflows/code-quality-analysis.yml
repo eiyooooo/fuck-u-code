@@ -3,8 +3,13 @@ name: Code Quality Analysis
 on:
   workflow_call:
     inputs:
+      repository:
+        description: 'External repository URL to analyze (e.g., https://github.com/user/repo). If provided, this repository will be cloned and analyzed.'
+        required: false
+        type: string
+        default: ''
       path:
-        description: 'Path to analyze (default: current directory)'
+        description: 'Path to analyze (relative to repository root, default: current directory)'
         required: false
         type: string
         default: '.'
@@ -55,7 +60,20 @@ jobs:
     
     steps:
     - name: Checkout repository
+      if: inputs.repository == ''
       uses: actions/checkout@v4
+      
+    - name: Clone external repository
+      if: inputs.repository != ''
+      run: |
+        echo "📦 Cloning external repository: ${{ inputs.repository }}"
+        git clone "${{ inputs.repository }}" "${GITHUB_WORKSPACE}/repo-to-analyze"
+        echo "REPO_PATH=${GITHUB_WORKSPACE}/repo-to-analyze" >> $GITHUB_ENV
+        
+    - name: Set repository path for current repo
+      if: inputs.repository == ''
+      run: |
+        echo "REPO_PATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
       
     - name: Set up Go
       uses: actions/setup-go@v5
@@ -70,6 +88,12 @@ jobs:
         
     - name: Run code quality analysis
       run: |
+        if [ -n "${{ inputs.repository }}" ]; then
+          echo "🔍 Analyzing external repository: ${{ inputs.repository }}"
+        else
+          echo "🔍 Analyzing current repository"
+        fi
+        
         # Build the command with inputs
         CMD="fuck-u-code analyze"
         CMD="$CMD --markdown"
@@ -97,8 +121,10 @@ jobs:
           done
         fi
         
-        # Add the path to analyze
-        CMD="$CMD ${{ inputs.path }}"
+        # Add the path to analyze (combine repo path with input path)
+        ANALYSIS_PATH="${REPO_PATH}/${{ inputs.path }}"
+        ANALYSIS_PATH=$(echo "$ANALYSIS_PATH" | sed 's#/\.*$##' | sed 's#/\./#/#g')
+        CMD="$CMD $ANALYSIS_PATH"
         
         # Run the analysis and save to report
         echo "Running: $CMD"

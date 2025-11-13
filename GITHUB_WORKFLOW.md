@@ -5,11 +5,13 @@ This repository provides a reusable GitHub workflow that allows you to run `fuck
 ## Features
 
 - ✅ **Reusable workflow** - Can be called from any GitHub repository
+- 📦 **External repository analysis** - Analyze any public GitHub repository by providing its URL
 - 📊 **Markdown reports** - Perfect for AI analysis, documentation, and CI/CD
 - 🗃️ **Artifact storage** - Reports are automatically uploaded as GitHub artifacts
 - ⚙️ **Configurable** - Supports all fuck-u-code options as workflow inputs
 - 🌍 **Multi-language** - Supports both Chinese (zh-CN) and English (en-US) reports
 - 📋 **Job summaries** - Displays key metrics directly in the GitHub Actions UI
+- 🔤 **Multi-language support** - Go, JS/TS, Python, Java, C/C++, Kotlin, Rust, C#, Lua
 
 ## Usage
 
@@ -69,6 +71,51 @@ jobs:
       artifact-name: 'frontend-quality-report'
 ```
 
+### Analyzing External Repositories
+
+You can analyze any public GitHub repository by providing its URL:
+
+```yaml
+name: Analyze External Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_url:
+        description: 'Repository URL to analyze'
+        required: true
+  schedule:
+    - cron: '0 0 * * 1'  # Run weekly
+
+jobs:
+  analyze-external:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: ${{ github.event.inputs.repo_url || 'https://github.com/torvalds/linux' }}
+      path: '.'
+      language: 'en-US'
+      top-files: 10
+      artifact-name: 'external-repo-report'
+```
+
+### Kotlin Project Analysis
+
+```yaml
+name: Kotlin Quality Check
+
+on: [push, pull_request]
+
+jobs:
+  kotlin-analysis:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      path: './src'
+      language: 'en-US'
+      top-files: 10
+      exclude-patterns: '**/test/** **/androidTest/** **/build/**'
+      artifact-name: 'kotlin-quality-report'
+```
+
 ### Multiple Language Reports
 
 ```yaml
@@ -90,6 +137,7 @@ jobs:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `repository` | string | `''` | External repository URL to analyze (e.g., `https://github.com/user/repo`). If provided, this repository will be cloned and analyzed instead of the current repository. |
 | `path` | string | `'.'` | Path to analyze (relative to repository root) |
 | `language` | string | `'en-US'` | Report language (`zh-CN` or `en-US`) |
 | `top-files` | number | `5` | Number of top problematic files to show |

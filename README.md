@@ -7,12 +7,13 @@
 
 ## 特性
 
-* **多语言支持**: Go、JS/TS、Python、Java、C/C++
+* **多语言支持**: Go、JS/TS、Python、Java、C/C++、Kotlin、Rust、C#、Lua
 * **屎山指数**: 0\~100 分，越高越烂
 * **七维度检测**: 复杂度 / 函数长度 / 注释率 / 错误处理 / 命名 / 重复度 / 结构
 * **彩色终端报告**: 批评也能笑着听
 * **Markdown 输出**: 方便 AI 分析与文档集成
 * **灵活配置**: 摘要 / 详细模式，多语言报告
+* **外部仓库分析**: 支持通过 GitHub Actions 分析任意 GitHub 仓库
 
 > [!Note]
 >
@@ -90,6 +91,8 @@ Markdown 报告包含：总体评分 / 指标表格 / 问题文件 / 改进建�
 
 使用我们提供的 GitHub 工作流，在 CI/CD 中自动进行代码质量分析：
 
+#### 分析当前仓库
+
 ```yaml
 # .github/workflows/code-quality.yml
 name: Code Quality Check
@@ -104,7 +107,20 @@ jobs:
       artifact-name: 'code-quality-report'
 ```
 
-或者使用 GitHub Action：
+#### 分析外部仓库
+
+```yaml
+jobs:
+  analyze-external:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: 'https://github.com/user/repo'
+      path: './src'
+      language: 'zh-CN'
+      top-files: 10
+```
+
+#### 使用 GitHub Action
 
 ```yaml
 - name: Code Quality Analysis
@@ -113,6 +129,18 @@ jobs:
     path: './src'
     language: 'zh-CN'
     top-files: 5
+```
+
+#### 分析外部仓库（使用 Action）
+
+```yaml
+- name: Analyze External Repository
+  uses: ZhulongNT/fuck-u-code@main
+  with:
+    repository: 'https://github.com/user/repo'
+    path: './src'
+    language: 'en-US'
+    top-files: 10
 ```
 
 详细使用说明请参考：[GitHub 工作流文档](GITHUB_WORKFLOW.md)
