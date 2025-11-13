@@ -7,8 +7,12 @@ branding:
   color: 'red'
 
 inputs:
+  repository:
+    description: 'External repository URL to analyze (e.g., https://github.com/user/repo). If provided, this repository will be cloned and analyzed instead of the current repository.'
+    required: false
+    default: ''
   path:
-    description: 'Path to analyze'
+    description: 'Path to analyze (relative to repository root or current directory)'
     required: false
     default: '.'
   language:
@@ -72,11 +76,33 @@ runs:
         go build -o /usr/local/bin/fuck-u-code ./cmd/fuck-u-code
         echo "✅ fuck-u-code built successfully"
         
+    - name: Clone external repository
+      if: inputs.repository != ''
+      shell: bash
+      run: |
+        echo "📦 Cloning external repository: ${{ inputs.repository }}"
+        CLONE_DIR="/tmp/repo-to-analyze"
+        rm -rf "$CLONE_DIR"
+        git clone "${{ inputs.repository }}" "$CLONE_DIR"
+        echo "ANALYSIS_PATH=$CLONE_DIR/${{ inputs.path }}" >> $GITHUB_ENV
+        echo "✅ Repository cloned successfully"
+        
+    - name: Set analysis path for current repository
+      if: inputs.repository == ''
+      shell: bash
+      run: |
+        echo "ANALYSIS_PATH=${{ inputs.path }}" >> $GITHUB_ENV
+        
     - name: Run analysis
       id: analyze
       shell: bash
       run: |
         echo "🔍 Starting code quality analysis..."
+        if [ -n "${{ inputs.repository }}" ]; then
+          echo "📂 Analyzing external repository: ${{ inputs.repository }}"
+        else
+          echo "📂 Analyzing current repository"
+        fi
         
         # Build the command
         CMD="fuck-u-code analyze --markdown"
@@ -104,8 +130,8 @@ runs:
           done
         fi
         
-        # Add path
-        CMD="$CMD ${{ inputs.path }}"
+        # Add path (use ANALYSIS_PATH which is set based on whether we're analyzing external repo or current repo)
+        CMD="$CMD $ANALYSIS_PATH"
         
         # Create output file
         OUTPUT_FILE="code-quality-report.md"

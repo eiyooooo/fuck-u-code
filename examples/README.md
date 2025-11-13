@@ -7,6 +7,8 @@ This directory contains example workflows showing how to use fuck-u-code in GitH
 - **`basic-usage.yml`** - Simple workflow for getting started
 - **`advanced-usage.yml`** - Multiple jobs for monorepo analysis
 - **`action-usage.yml`** - Using the composite action with quality gates
+- **`external-repo-usage.yml`** - Analyzing external GitHub repositories
+- **`kotlin-analysis.yml`** - Kotlin project analysis examples
 
 ## Quick Start
 

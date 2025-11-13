@@ -8,12 +8,13 @@ A tool designed to **expose shitty code quality** with sharp but humorous feedba
 
 ## Features
 
-* **Multi-language support**: Go, JS/TS, Python, Java, C/C++
+* **Multi-language support**: Go, JS/TS, Python, Java, C/C++, Kotlin, Rust, C#, Lua
 * **Shit-Mountain Index**: Score 0~100, the higher, the worse
 * **Seven quality checks**: Complexity / Function length / Comments / Error handling / Naming / Duplication / Structure
 * **Colorful terminal report**: Criticism you can laugh at
 * **Markdown output**: Easy for AI analysis & documentation
 * **Flexible configuration**: Summary / Detailed mode, multi-language reports
+* **External repository analysis**: Analyze any GitHub repository via GitHub Actions
 
 > [!Note]
 >
@@ -91,6 +92,8 @@ Markdown report includes: overall score / metrics table / problematic files / su
 
 Use our provided GitHub workflows for automated code quality analysis in CI/CD:
 
+#### Analyze Current Repository
+
 ```yaml
 # .github/workflows/code-quality.yml
 name: Code Quality Check
@@ -105,7 +108,20 @@ jobs:
       artifact-name: 'code-quality-report'
 ```
 
-Or use the GitHub Action directly:
+#### Analyze External Repository
+
+```yaml
+jobs:
+  analyze-external:
+    uses: ZhulongNT/fuck-u-code/.github/workflows/code-quality-analysis.yml@main
+    with:
+      repository: 'https://github.com/user/repo'
+      path: './src'
+      language: 'en-US'
+      top-files: 10
+```
+
+#### Using GitHub Action
 
 ```yaml
 - name: Code Quality Analysis
@@ -114,6 +130,18 @@ Or use the GitHub Action directly:
     path: './src'
     language: 'en-US'
     top-files: 5
+```
+
+#### Analyze External Repository (with Action)
+
+```yaml
+- name: Analyze External Repository
+  uses: ZhulongNT/fuck-u-code@main
+  with:
+    repository: 'https://github.com/user/repo'
+    path: './src'
+    language: 'en-US'
+    top-files: 10
 ```
 
 For detailed usage instructions, see: [GitHub Workflow Documentation](GITHUB_WORKFLOW.md)
