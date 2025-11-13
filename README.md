@@ -143,6 +143,21 @@ jobs:
     top-files: 10
 ```
 
+#### 直接在本仓库分析任意仓库
+
+无需在目标仓库配置工作流，直接在 fuck-u-code 仓库执行分析：
+
+1. 访问 [fuck-u-code Actions 页面](https://github.com/eiyooooo/fuck-u-code/actions/workflows/analyze-any-repo.yml)
+2. 点击 "Run workflow" 按钮
+3. 输入要分析的仓库 URL 和其他参数
+4. 等待分析完成，下载生成的报告
+
+这种方式特别适合：
+- 快速分析开源项目
+- 评估外部代码质量
+- 无需修改目标仓库
+- 一键生成质量报告
+
 详细使用说明请参考：[GitHub 工作流文档](GITHUB_WORKFLOW.md)
 
 ### 默认排除路径
