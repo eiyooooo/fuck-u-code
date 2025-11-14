@@ -82,7 +82,7 @@ jobs:
         
     - name: Build fuck-u-code
       run: |
-        git clone https://github.com/ZhulongNT/fuck-u-code.git /tmp/fuck-u-code
+        git clone https://github.com/eiyooooo/fuck-u-code.git /tmp/fuck-u-code
         cd /tmp/fuck-u-code
         go build -o /usr/local/bin/fuck-u-code ./cmd/fuck-u-code
         
